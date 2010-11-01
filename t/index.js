@@ -16,16 +16,22 @@ Harness.configure({
     title     : 'ExtX.Reference.Slot Test Suite',
     
     preload : [
-        "jsan:Task.Joose.Core",
-        "jsan:Task.JooseX.Namespace.Depended.Auto",
-        {
-            text : "JooseX.Namespace.Depended.Manager.my.INC = " + Harness.prepareINC(INC)
-        }
+        'jsan:Task.Joose.Core',
+        
+        "jsan:Task.ExtJS.Adapter.Ext",
+        
+        'jsan:JooseX.Bridge.Ext',
+        'jsan:JooseX.Bridge.Ext.Convertor',
+        
+        "jsan:Task.ExtJS.All",
+    
+        "ExtX.Reference.Slot"
     ]
 })
 
 
 Harness.start(
-    '010_sanity.t.js'
+    '010_sanity.t.js',
+    '020_basics.t.js'
 )
 
