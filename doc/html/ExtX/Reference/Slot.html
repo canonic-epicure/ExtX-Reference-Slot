@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<link type="text/css" rel="stylesheet" href="http://bit.ly/multi_markdown_style_css " />
+	</head>
+<body>
+<h1 id="name">Name</h1>
+
+<p>ExtX.Reference.Slot - ExtJS extension for accessing components hierarchy with mnemonic names</p>
+
+<h1 id="synopsis">SYNOPSIS</h1>
+
+<p>Include this extension after the bridged ExtJS</p>
+
+<pre><code>    &lt;!-- Ext bridge  --&gt;
+
+    &lt;script type="text/javascript" src="/jsan/Task/ExtJS/Adapter/Ext.js"&gt;&lt;/script&gt;
+
+    &lt;script type="text/javascript" src="/jsan/JooseX/Meta/Lazy.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="/jsan/JooseX/Bridge/Ext.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="/jsan/JooseX/Bridge/Ext/LazyConvertor.js"&gt;&lt;/script&gt;
+
+    &lt;script type="text/javascript" src="/jsan/Task/ExtJS/All.js"&gt;&lt;/script&gt;
+
+    &lt;!-- eof Ext bridge  --&gt;
+
+
+    &lt;script type="text/javascript" src="/jsan/ExtX/Reference/Slot.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>Then, in your code:</p>
+
+<pre><code>    //declare
+
+    var slotsCollector = new Ext.Panel({
+        renderTo : Ext.getBody(),
+
+        width : 300,
+        height : 200,
+
+        slots : true,
+
+        items : [
+            {
+                title : 'Header'
+            },
+            {
+                title : 'Just a wrapper',
+
+                items : [ 
+                    {
+                        title : 'Sub header',
+
+                        slot : 'subHeader'        &lt;---------
+                    },                                     |
+                    {                                      |
+                        title : 'Content wrapper',         |
+                                                           |
+                        layout : 'fit',                    |
+                                                           |
+                        items : [                          |
+                            {                              |
+                                title : 'Content',         |
+                                                           |
+                                slot : 'content' &lt;------   |
+                            }                          |   |
+                        ]                              |   |
+                    }                                  |   |
+                ]                                      |   |
+            },                                         |   |
+            {                                          |   |
+                title : 'Footer',                      |   |
+                                                       |   |
+                slot : 'footer'                        |   |
+            }                                          |   |
+        ]                                              |   |
+    })                                                 |   |
+                                                       |   |        
+    //access childs with mnemonic names                |   |        
+                                                       |   |        
+    var content     = slotsCollector.slots.content   ---   |
+    var subHeader   = slotsCollector.slots.subHeader -------
+
+
+    //do something
+
+    content.on('event', this.eventHandler, this)
+</code></pre>
+
+<h1 id="description">DESCRIPTION</h1>
+
+<p><code>ExtX.Reference.Slot</code> allows you to access your child components with their <em>mnemonic</em> names.
+This greatly simplifies the internal structure of your widgets and make them more flexible.</p>
+
+<p>With this extension you no longer need global id's.</p>
+
+<h1 id="usage">USAGE</h1>
+
+<p>To access child components via slots, you need to create the container with 'slots' property set to 'true' value:</p>
+
+<pre><code>    var slotsCollector = new Ext.Panel({
+
+        slots   : true,
+
+        ...
+    })
+</code></pre>
+
+<p>This will establish a "slots collector" in your container. After this, if <em>any child</em> of this container, <em>at any depth</em>,
+will have 'slot' property defined, then that child will be aliased in the slots collector:</p>
+
+<pre><code>    var panel = new Ext.Panel({
+        slots   : true,
+
+        items : [
+            {
+                title : 'Child component #1',
+                slot : 'child1',
+
+                items : [
+                    {
+                        title : 'Child component #2',
+                        slot : 'child2',
+                    }
+                ]
+            }
+        ]
+    })
+
+    var child1 = panel.slots.child1
+    var child2 = panel.slots.child2
+</code></pre>
+
+<p>Note, that the child will be aliased to the <em>nearest</em> slots collector, up on the <code>onwerCt</code> hierarchy:</p>
+
+<pre><code>    var panel = new Ext.Panel({
+        slots   : true,
+
+        items : [
+            {
+                title : 'Child component #1',
+                slot : 'child1',
+
+                slots : true, //nested slots collector
+
+                items : [
+                    {
+                        title : 'Child component #2',
+                        slot : 'child2',
+                    }
+                ]
+            }
+        ]
+    })
+
+    var child1 = panel.slots.child1
+
+    var child2 = panel.slots.child1.slots.child2
+    // or
+    var child2 = child1.slots.child2
+</code></pre>
+
+<p>Dynamically added components are handled correctly. Components also clears themselves from slots collector upon destroy.
+Handling of dynamic components removing is in the TODO list.   </p>
+
+<h2 id="advantagescomparedwithref">Advantages compared with 'ref'</h2>
+
+<p>ExtJS have built-in mechanism for addressing child components - <code>ref</code> property. However it has couple of drawbacks:</p>
+
+<ul>
+<li><p><code>ref</code> requires you explicitly specify the parent container in which the reference will be added. 
+Thus, if you will move some child component to another nesting level, you'll need to manually update its <code>ref</code> property. </p></li>
+<li><p><code>ref</code> adds references directly to the container. Thus, you should avoid of usage of standard or custom properties, 
+like <code>title</code>, <code>header</code>, <code>footer</code>, <code>myCustomProperty</code> to prevent potential clash.   </p></li>
+</ul>
+
+<p>This extension is free from these drawbacks.</p>
+
+<h1 id="properties">PROPERTIES</h1>
+
+<p>This extension is implemented as two Roles - for Ext.Component and Ext.Container. Roles add some new properties to those classes:</p>
+
+<h2 id="ext.component">Ext.Component</h2>
+
+<ul>
+<li><code>this.slot</code></li>
+</ul>
+
+<p>The name of the slot (alias) under which this component will be accessible in slots collector.</p>
+
+<ul>
+<li><code>this.siblingSlots</code></li>
+</ul>
+
+<p>The 'slots' property of this component's slots collector. Its possible to access sibling components via this property:</p>
+
+<pre><code>    var panel = new Ext.Panel({
+        slots   : true,
+
+        items : [
+            {
+                title : 'Child component #1',
+                slot : 'child1',
+
+                items : [
+                    {
+                        title : 'Child component #2',
+                        slot : 'child2',
+                    }
+                ]
+            }
+        ]
+    })
+
+    var child1 = panel.slots.child1
+    var child2 = child1.siblingSlots.child2
+</code></pre>
+
+<h2 id="ext.container">Ext.Container</h2>
+
+<ul>
+<li><code>this.slots</code></li>
+</ul>
+
+<p>The slots collector, into which the components with 'slot' property will be aliased. Should be set to 'true' on construction.</p>
+
+<h1 id="todo">TODO</h1>
+
+<ul>
+<li>Handle dynamic 'remove'</li>
+<li>Implement several optimizations (keep the nearest slots collector in some property)</li>
+</ul>
+
+<h1 id="gettinghelp">GETTING HELP</h1>
+
+<p>This extension is supported via github issues tracker: <a href="http://github.com/SamuraiJack/ExtX-Reference-Slot/issues">http://github.com/SamuraiJack/ExtX-Reference-Slot/issues</a></p>
+
+<p>For general Joose questions you can also visit #joose on irc.freenode.org or the forum at: <a href="http://joose.it/forum">http://joose.it/forum</a></p>
+
+<h1 id="seealso">SEE ALSO</h1>
+
+<p>Web page of this extensions: <a href="http://github.com/SamuraiJack/ExtX-Reference-Slot/">http://github.com/SamuraiJack/ExtX-Reference-Slot/</a></p>
+
+<p>General documentation for Joose: <a href="http://Joose.github.com/Joose/">http://Joose.github.com/Joose/</a></p>
+
+<h1 id="bugs">BUGS</h1>
+
+<p>All complex software has bugs lurking in it, and this module is no exception.</p>
+
+<p>Please report any bugs through the web interface at <a href="http://github.com/SamuraiJack/ExtX-Reference-Slot/issues">http://github.com/SamuraiJack/ExtX-Reference-Slot/issues</a></p>
+
+<h1 id="authors">AUTHORS</h1>
+
+<p>Nickolay Platonov <a href="mailto:nplatonov@cpan.org">nplatonov@cpan.org</a></p>
+
+<h1 id="copyrightandlicense">COPYRIGHT AND LICENSE</h1>
+
+<p>Copyright (c) 2009, Nickolay Platonov</p>
+
+<p>All rights reserved.</p>
+
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
+
+<ul>
+<li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+<li>Neither the name of Nickolay Platonov nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission. </li>
+</ul>
+
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. </p>
+</body>
+</html>
