@@ -2,6 +2,9 @@ Release history for ExtX.Reference.Slot
 
 {{$NEXT}}
 
+        - added `setActiveSlot` method
+    
+
 0.2.0     2010-11-01 11:29
 
         First version, released on an unsuspecting world.
