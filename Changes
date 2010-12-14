@@ -3,7 +3,9 @@ Release history for ExtX.Reference.Slot
 {{$NEXT}}
 
         - added `setActiveSlot` method
-    
+        - bumped deps
+        - updated docs
+        - override Ext.BoxComponent and not Ext.Component (which is "raw" JS class)
 
 0.2.0     2010-11-01 11:29
 

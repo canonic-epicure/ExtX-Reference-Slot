@@ -9,17 +9,19 @@ SYNOPSIS
 
 Include this extension after the bridged ExtJS
 
-        <!-- Ext bridge  -->
+        <!-- Joose  -->
+        <script type="text/javascript" src="/jsan/Task/Joose/Core.js"></script>
         
-        <script type="text/javascript" src="/jsan/Task/ExtJS/Adapter/Ext.js"></script>
-
-        <script type="text/javascript" src="/jsan/JooseX/Meta/Lazy.js"></script>
+    
+        <!-- ExtJS bridged  -->
+        <script type="text/javascript" src="ext-3.3.1/adapter/ext/ext-base.js"></script>
+        
         <script type="text/javascript" src="/jsan/JooseX/Bridge/Ext.js"></script>
-        <script type="text/javascript" src="/jsan/JooseX/Bridge/Ext/LazyConvertor.js"></script>
+        <script type="text/javascript" src="/jsan/JooseX/Bridge/Ext/Convertor.js"></script>
         
-        <script type="text/javascript" src="/jsan/Task/ExtJS/All.js"></script>
+        <script type="text/javascript" src="ext-3.3.1/ext-all.js"></script>
         
-        <!-- eof Ext bridge  -->
+        <!-- eof ExtJS bridged  -->
         
         
         <script type="text/javascript" src="/jsan/ExtX/Reference/Slot.js"></script>
@@ -82,6 +84,21 @@ Then, in your code:
         //do something
         
         content.on('event', this.eventHandler, this)
+
+INSTALLATION
+============
+
+See [Joose docs](http://joose.github.com/Joose) for installation instructions. 
+
+From `npm`:
+    
+    > [sudo] npm install extx-reference-slot
+    
+Or you can download the tarball from one the sites:
+
+<http://nodul.es/modules/extx-reference-slot>
+
+<http://npm.mape.me/> (filter the modules for `extx-reference-slot` term)
 
 
 DESCRIPTION
@@ -180,10 +197,10 @@ This extension is free from these drawbacks.
 PROPERTIES
 ==========
 
-This extension is implemented as two Roles - for Ext.Component and Ext.Container. Roles add some new properties to those classes:
+This extension is implemented as two Roles - for Ext.BoxComponent and Ext.Container. Roles add some new properties to those classes:
 
 
-Ext.Component
+Ext.BoxComponent
 -------------
 
   - `this.slot`
@@ -239,17 +256,20 @@ GETTING HELP
 
 This extension is supported via github issues tracker: <http://github.com/SamuraiJack/ExtX-Reference-Slot/issues>
 
-For general Joose questions you can also visit #joose on irc.freenode.org or the forum at: <http://joose.it/forum>
+You can also ask questions at IRC channel : [#joose](http://webchat.freenode.net/?randomnick=1&channels=joose&prompt=1)
+ 
+Or the mailing list: <http://groups.google.com/group/joose-js>
  
 
 
 SEE ALSO
 ========
 
-Web page of this extensions: <http://github.com/SamuraiJack/ExtX-Reference-Slot/>
+Bridge from ExtJS class system to Joose: <http://samuraijack.github.com/joosex-bridge-ext>
 
+Joose web-site: <http://joose.it>
 
-General documentation for Joose: <http://Joose.github.com/Joose/>
+General documentation for Joose: <http://joose.github.com/Joose/>
 
 
 
