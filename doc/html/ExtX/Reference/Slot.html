@@ -12,17 +12,19 @@
 
 <p>Include this extension after the bridged ExtJS</p>
 
-<pre><code>    &lt;!-- Ext bridge  --&gt;
+<pre><code>    &lt;!-- Joose  --&gt;
+    &lt;script type="text/javascript" src="/jsan/Task/Joose/Core.js"&gt;&lt;/script&gt;
 
-    &lt;script type="text/javascript" src="/jsan/Task/ExtJS/Adapter/Ext.js"&gt;&lt;/script&gt;
 
-    &lt;script type="text/javascript" src="/jsan/JooseX/Meta/Lazy.js"&gt;&lt;/script&gt;
+    &lt;!-- ExtJS bridged  --&gt;
+    &lt;script type="text/javascript" src="ext-3.3.1/adapter/ext/ext-base.js"&gt;&lt;/script&gt;
+
     &lt;script type="text/javascript" src="/jsan/JooseX/Bridge/Ext.js"&gt;&lt;/script&gt;
-    &lt;script type="text/javascript" src="/jsan/JooseX/Bridge/Ext/LazyConvertor.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="/jsan/JooseX/Bridge/Ext/Convertor.js"&gt;&lt;/script&gt;
 
-    &lt;script type="text/javascript" src="/jsan/Task/ExtJS/All.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="ext-3.3.1/ext-all.js"&gt;&lt;/script&gt;
 
-    &lt;!-- eof Ext bridge  --&gt;
+    &lt;!-- eof ExtJS bridged  --&gt;
 
 
     &lt;script type="text/javascript" src="/jsan/ExtX/Reference/Slot.js"&gt;&lt;/script&gt;
@@ -86,6 +88,21 @@
 
     content.on('event', this.eventHandler, this)
 </code></pre>
+
+<h1 id="installation">INSTALLATION</h1>
+
+<p>See <a href="http://joose.github.com/Joose">Joose docs</a> for installation instructions. </p>
+
+<p>From <code>npm</code>:</p>
+
+<pre><code>&gt; [sudo] npm install extx-reference-slot
+</code></pre>
+
+<p>Or you can download the tarball from one the sites:</p>
+
+<p><a href="http://nodul.es/modules/extx-reference-slot">http://nodul.es/modules/extx-reference-slot</a></p>
+
+<p><a href="http://npm.mape.me/">http://npm.mape.me/</a> (filter the modules for <code>extx-reference-slot</code> term)</p>
 
 <h1 id="description">DESCRIPTION</h1>
 
@@ -178,9 +195,9 @@ like <code>title</code>, <code>header</code>, <code>footer</code>, <code>myCusto
 
 <h1 id="properties">PROPERTIES</h1>
 
-<p>This extension is implemented as two Roles - for Ext.Component and Ext.Container. Roles add some new properties to those classes:</p>
+<p>This extension is implemented as two Roles - for Ext.BoxComponent and Ext.Container. Roles add some new properties to those classes:</p>
 
-<h2 id="ext.component">Ext.Component</h2>
+<h2 id="ext.boxcomponent">Ext.BoxComponent</h2>
 
 <ul>
 <li><code>this.slot</code></li>
@@ -235,13 +252,17 @@ like <code>title</code>, <code>header</code>, <code>footer</code>, <code>myCusto
 
 <p>This extension is supported via github issues tracker: <a href="http://github.com/SamuraiJack/ExtX-Reference-Slot/issues">http://github.com/SamuraiJack/ExtX-Reference-Slot/issues</a></p>
 
-<p>For general Joose questions you can also visit #joose on irc.freenode.org or the forum at: <a href="http://joose.it/forum">http://joose.it/forum</a></p>
+<p>You can also ask questions at IRC channel : <a href="http://webchat.freenode.net/?randomnick=1&amp;channels=joose&amp;prompt=1">#joose</a></p>
+
+<p>Or the mailing list: <a href="http://groups.google.com/group/joose-js">http://groups.google.com/group/joose-js</a></p>
 
 <h1 id="seealso">SEE ALSO</h1>
 
-<p>Web page of this extensions: <a href="http://github.com/SamuraiJack/ExtX-Reference-Slot/">http://github.com/SamuraiJack/ExtX-Reference-Slot/</a></p>
+<p>Bridge from ExtJS class system to Joose: <a href="http://samuraijack.github.com/joosex-bridge-ext">http://samuraijack.github.com/joosex-bridge-ext</a></p>
 
-<p>General documentation for Joose: <a href="http://Joose.github.com/Joose/">http://Joose.github.com/Joose/</a></p>
+<p>Joose web-site: <a href="http://joose.it">http://joose.it</a></p>
+
+<p>General documentation for Joose: <a href="http://joose.github.com/Joose/">http://joose.github.com/Joose/</a></p>
 
 <h1 id="bugs">BUGS</h1>
 
