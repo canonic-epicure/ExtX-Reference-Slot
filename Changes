@@ -1,6 +1,7 @@
 Release history for ExtX.Reference.Slot
 
 {{$NEXT}}
+        - re-release, as the update of the `gh-pages` branch failed
 
 0.2.1     2010-12-14 18:41
 
