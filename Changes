@@ -2,6 +2,8 @@ Release history for ExtX.Reference.Slot
 
 {{$NEXT}}
 
+        - re-release for npm 1.0
+
 0.2.3     2011-01-12 18:44
 
         - re-release just to pick up the new markdown css styles, no functional changes
