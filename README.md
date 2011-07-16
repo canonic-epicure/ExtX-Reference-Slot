@@ -92,13 +92,9 @@ See [Joose docs](http://joose.github.com/Joose) for installation instructions.
 
 From `npm`:
     
-    > [sudo] npm install extx-reference-slot
+    > [sudo] npm install extx-reference-slot --unsafe-perm=true
     
-Or you can download the tarball from one the sites:
-
-<http://nodul.es/modules/extx-reference-slot>
-
-<http://npm.mape.me/> (filter the modules for `extx-reference-slot` term)
+Tarballs are available for download from <http://search.npmjs.org/#/extx-reference-slot>.
 
 
 DESCRIPTION
