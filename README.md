@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/SamuraiJack/ExtX-Reference-Slot.png)](http://travis-ci.org/SamuraiJack/ExtX-Reference-Slot)
 Name
 ====
 
